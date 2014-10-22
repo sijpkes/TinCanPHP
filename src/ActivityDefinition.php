@@ -16,10 +16,11 @@
 */
 
 namespace TinCan;
-
-class ActivityDefinition implements VersionableInterface
+ 
+class ActivityDefinition implements VersionableInterface, \JsonSerializable
 {
-    use ArraySetterTrait, FromJSONTrait, AsVersionTrait;
+	
+	use ArraySetterTrait, FromJSONTrait, AsVersionTrait;
 
     protected $type;
     protected $name;
@@ -129,4 +130,20 @@ class ActivityDefinition implements VersionableInterface
     public function getTarget() { return $this->target; }
     public function setSteps($value) { $this->steps = $value; return $this; }
     public function getSteps() { return $this->steps; }
+    
+    public function jsonSerialize() {
+    	return array('type'=> $this->type,
+    			'name' => $this->name,
+    			'description' => $this->description,
+    			'moreInfo' => $this->moreInfo,
+    			'extensions' => $this->extensions,
+    			'interactionType' => $this->interactionType,
+    			'correctResponsesPattern' => $this->correctResponsesPattern,
+    			'choices' => $this->choices,
+    			'scale' => $this->scale,
+    			'source' => $this->source,
+    			'target'=> $this->target,
+    			'steps' => $this->steps
+    	);
+    }
 }

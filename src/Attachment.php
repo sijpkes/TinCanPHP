@@ -17,7 +17,7 @@
 
 namespace TinCan;
 
-class Attachment implements VersionableInterface
+class Attachment implements VersionableInterface, \JsonSerializable
 {
     use ArraySetterTrait, FromJSONTrait, AsVersionTrait;
 
@@ -95,4 +95,15 @@ class Attachment implements VersionableInterface
     public function getSha2() { return $this->sha2; }
     public function setFileUrl($value) { $this->fileUrl = $value; return $this; }
     public function getFileUrl() { return $this->fileUrl; }
+    
+    public function jsonSerialize() {
+    	return array('usageType' => $this->usageType,
+    			'display' => $this->display,
+    			'description' => $this->description,
+    			'contentType' => $this->contentType,
+    			'length' => $this->length,
+    			'sha2' => $this->sha2,
+    			'fileUrl' => $this->fileUrl
+    	);
+    }
 }

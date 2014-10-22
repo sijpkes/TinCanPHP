@@ -17,7 +17,7 @@
 
 namespace TinCan;
 
-class Statement extends StatementBase
+class Statement extends StatementBase implements \JsonSerializable
 {
     protected $id;
 
@@ -26,7 +26,7 @@ class Statement extends StatementBase
     // support sub-second precision, the setter will take a DateTime and convert
     // it to the proper ISO8601 representation, but if a user needs sub-second
     // precision as afforded by the spec they will have to create their own,
-    // they can see TinCan\Util::getTimestamp for an example of how to do so
+    // they can see TinCan\Util::getTimestamp for an example of how to  do so
     //
     protected $stored;
 
@@ -150,5 +150,17 @@ class Statement extends StatementBase
         array_push($this->attachments, $value);
 
         return $this;
+    }
+    
+    public function jsonSerialize() {
+    	return array('stored' => $this->stored,
+    			'authority' => $this->authority,
+    			'version' => $this->version,
+    			'attachments' => $this->attachments,
+    			'verb'=>$this->verb,
+    			'target' => $this->target,
+    			'result' => $this->result,
+    			'context' => $this->context
+    	);
     }
 }

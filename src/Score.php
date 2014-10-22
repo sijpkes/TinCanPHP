@@ -17,7 +17,7 @@
 
 namespace TinCan;
 
-class Score implements VersionableInterface
+class Score implements VersionableInterface, \JsonSerializable
 {
     use ArraySetterTrait, FromJSONTrait, AsVersionTrait;
 
@@ -49,4 +49,13 @@ class Score implements VersionableInterface
     public function getMin() { return $this->min; }
     public function setMax($value) { $this->max = $value; return $this; }
     public function getMax() { return $this->max; }
+    
+    public function jsonSerialize() {
+    	return [
+    			'scaled' => $this->scaled,
+    			'raw' => $this->raw,
+    			'min' => $this->min,
+    			'max' => $this->max
+    		];
+    }
 }

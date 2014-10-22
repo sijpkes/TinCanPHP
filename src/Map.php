@@ -17,7 +17,7 @@
 
 namespace TinCan;
 
-abstract class Map implements VersionableInterface
+abstract class Map implements VersionableInterface, \JsonSerializable
 {
     use FromJSONTrait;
 
@@ -57,5 +57,9 @@ abstract class Map implements VersionableInterface
             default:
                 throw new BadMethodCallException(__CLASS__ . "::$func() does not exist");
         }
+    }
+    
+    public function jsonSerialize() {
+    	return array('_map' => $this->_map);
     }
 }

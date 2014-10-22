@@ -81,4 +81,15 @@ class Result implements VersionableInterface
         return $this;
     }
     public function getExtensions() { return $this->extensions; }
+    
+    public function jsonSerialize() {
+    
+    	return array('score' => $this->score,
+    			'success' => $this->success,
+    			'completion' => $this->completion,
+    			'duration' => $this->duration,
+    			'response' => $this->response,
+    			'extensions' => $this->extensions
+    	);
+    }
 }

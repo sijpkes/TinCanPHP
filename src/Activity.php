@@ -17,9 +17,10 @@
 
 namespace TinCan;
 
-class Activity implements VersionableInterface, StatementTargetInterface
+class Activity implements VersionableInterface, StatementTargetInterface, \JsonSerializable
 {
-    use ArraySetterTrait, FromJSONTrait, AsVersionTrait;
+	use ArraySetterTrait, FromJSONTrait, AsVersionTrait;
+	
     private $objectType = 'Activity';
 
     protected $id;
@@ -58,4 +59,9 @@ class Activity implements VersionableInterface, StatementTargetInterface
         return $this;
     }
     public function getDefinition() { return $this->definition; }
+    
+    public function jsonSerialize() {
+    	return array('id' => $this->id,
+    			'authority' => $this->definition);
+    }
 }

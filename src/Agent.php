@@ -17,9 +17,11 @@
 
 namespace TinCan;
 
-class Agent implements VersionableInterface, StatementTargetInterface
-{
-    use ArraySetterTrait, FromJSONTrait;
+
+class Agent implements VersionableInterface, StatementTargetInterface, \JsonSerializable
+{   
+	use ArraySetterTrait, FromJSONTrait;
+	
     protected $objectType = 'Agent';
 
     protected $name;
@@ -93,4 +95,12 @@ class Agent implements VersionableInterface, StatementTargetInterface
         return $this;
     }
     public function getAccount() { return $this->account; }
+    
+    public function jsonSerialize() {
+    	return array('name'=>$this->name,
+    			'mbox' => $this->mbox,
+    			'mbox_sha1sum' => $this->mbox_sha1sum,
+    			'openid' => $this->openid,
+    			'account' => $this->account);
+    }
 }

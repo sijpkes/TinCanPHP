@@ -17,7 +17,7 @@
 
 namespace TinCan;
 
-class Verb implements VersionableInterface
+class Verb implements VersionableInterface, \JsonSerializable	
 {
     use ArraySetterTrait, FromJSONTrait, AsVersionTrait;
 
@@ -57,4 +57,9 @@ class Verb implements VersionableInterface
         return $this;
     }
     public function getDisplay() { return $this->display; }
+    
+    public function jsonSerialize() {
+    	return array('id' => $this->id,
+    			'display' => $this->display);
+    }
 }
